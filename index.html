@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>শিক্ষা আটকে আছে — স্কিলই ভবিষ্যৎ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============ RESET ============ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:#000; color:#fff;
+  font-family:'Hind Siliguri',sans-serif;
+  overflow-x:hidden; line-height:1.6;
+}
+
+/* ============ CSS VARIABLES ============ */
+:root {
+  --orange:  #ff5a1f;
+  --orange2: #ff8c00;
+  --yellow:  #ffcc44;
+  --muted:   rgba(255,255,255,0.5);
+  --border:  rgba(255,255,255,0.08);
+  --card-bg: rgba(255,255,255,0.03);
+  --max-w:   1140px;
+  --px:      clamp(16px, 5vw, 80px);
+}
+
+/* ============ LAYOUT ============ */
+.container {
+  width:100%; max-width:var(--max-w);
+  margin:0 auto; padding:0 var(--px);
+}
+section { position:relative; padding:clamp(60px,8vw,120px) 0; }
+
+/* ============ SECTION LABELS ============ */
+.label {
+  font-size:clamp(9px,1vw,11px); font-weight:700;
+  letter-spacing:4px; color:var(--orange);
+  text-transform:uppercase; margin-bottom:clamp(12px,2vw,18px);
+  display:flex; align-items:center; gap:12px;
+}
+.label::before {
+  content:''; width:28px; height:1px;
+  background:var(--orange); flex-shrink:0;
+}
+.section-title {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(26px,4.5vw,56px);
+  color:#fff; line-height:1.2;
+  margin-bottom:clamp(14px,2vw,22px);
+}
+.section-desc {
+  font-size:clamp(14px,1.7vw,19px);
+  color:var(--muted); line-height:1.75;
+  max-width:640px;
+}
+
+/* ============ NAVBAR ============ */
+.navbar {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:0 var(--px);
+  height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,80,0,0.15);
+}
+.nav-logo {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(15px,2.2vw,22px);
+  color:var(--orange);
+  text-shadow:0 0 20px rgba(255,80,0,0.5);
+  white-space:nowrap; text-decoration:none;
+}
+.nav-links {
+  display:flex; gap:clamp(12px,2.5vw,32px); list-style:none;
+}
+.nav-links a {
+  color:rgba(255,255,255,0.65); text-decoration:none;
+  font-size:clamp(12px,1.3vw,15px); font-weight:600;
+  letter-spacing:0.5px; transition:color .2s;
+}
+.nav-links a:hover { color:var(--orange); }
+.nav-cta {
+  background:rgba(255,80,0,0.15);
+  border:1px solid rgba(255,80,0,0.45);
+  color:var(--orange) !important;
+  padding:7px 20px; border-radius:6px;
+  transition:background .2s !important;
+}
+.nav-cta:hover { background:rgba(255,80,0,0.28) !important; }
+.nav-toggle {
+  display:none; flex-direction:column;
+  gap:5px; cursor:pointer; padding:4px; background:none; border:none;
+}
+.nav-toggle span {
+  display:block; width:24px; height:2px;
+  background:var(--orange); border-radius:2px; transition:all .3s;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height:100vh; padding-top:64px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 130% 80% at 50% 110%,
+    #3d0900 0%, #1c0300 30%, #080005 60%, #000 100%);
+}
+.hero-glow {
+  position:absolute; bottom:-8%; left:50%;
+  transform:translateX(-50%);
+  width:min(1000px,95%); height:60%;
+  background:radial-gradient(ellipse at center bottom,
+    rgba(255,80,0,.65) 0%, rgba(220,40,0,.38) 28%,
+    rgba(140,10,0,.18) 55%, transparent 75%);
+  filter:blur(45px);
+  animation:heroGlow 3s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  from { opacity:.8; transform:translateX(-50%) scaleY(1); }
+  to   { opacity:1;  transform:translateX(-50%) scaleY(1.07); }
+}
+.side-glow {
+  position:absolute; top:8%;
+  width:42%; height:75%;
+  background:radial-gradient(ellipse, rgba(255,50,0,.1) 0%, transparent 70%);
+  filter:blur(55px);
+}
+.side-glow.l { left:-6%; animation:sG 5s ease-in-out infinite alternate; }
+.side-glow.r { right:-6%; animation:sG 5s ease-in-out infinite alternate-reverse; }
+@keyframes sG { from{opacity:.5} to{opacity:1} }
+
+.grain {
+  position:absolute; inset:0; opacity:.03; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;
+}
+.vignette {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 85% 80% at 50% 38%,
+    transparent 38%, rgba(0,0,0,.85) 100%);
+}
+.fire-svg {
+  position:absolute; bottom:0; left:0;
+  width:100%; height:clamp(160px,26vh,340px); z-index:5;
+}
+.wisp {
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, rgba(180,120,80,.1) 0%, transparent 70%);
+  filter:blur(22px);
+  animation:wispUp linear infinite;
+  z-index:4; pointer-events:none;
+}
+@keyframes wispUp {
+  0%   { transform:translateY(0) scale(1); opacity:.4; }
+  100% { transform:translateY(-42vh) scale(3.2); opacity:0; }
+}
+.ember {
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, #fff 0%, #ff8030 40%, transparent 70%);
+  box-shadow:0 0 5px rgba(255,120,50,.9);
+  animation:embUp ease-in infinite;
+  z-index:6; pointer-events:none;
+}
+@keyframes embUp {
+  0%   { transform:translateY(0) translateX(0) scale(1); opacity:1; }
+  100% { transform:translateY(var(--rise)) translateX(var(--sway)) scale(.1); opacity:0; }
+}
+.light-beam {
+  position:absolute; top:64px; left:0; right:0; z-index:20; height:1px;
+  background:linear-gradient(to right,
+    transparent 0%, rgba(255,100,30,.5) 28%,
+    rgba(255,150,50,.85) 50%, rgba(255,100,30,.5) 72%, transparent 100%);
+  box-shadow:0 0 16px rgba(255,100,0,.6);
+  animation:beam 2.5s ease-in-out infinite alternate;
+}
+@keyframes beam { from{opacity:.5} to{opacity:1} }
+
+/* Hero content */
+.hero-content {
+  position:relative; z-index:10; text-align:center;
+  width:100%; max-width:960px;
+  padding:clamp(40px,7vh,90px) var(--px) clamp(160px,24vh,260px);
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:12px;
+  margin-bottom:clamp(18px,3vh,34px);
+}
+.hbl {
+  width:clamp(28px,4vw,56px); height:1px;
+  background:linear-gradient(to right, transparent, rgba(255,100,30,.8));
+}
+.hbl.r { background:linear-gradient(to left, transparent, rgba(255,100,30,.8)); }
+.hbt {
+  font-size:clamp(9px,1vw,12px); font-weight:700;
+  letter-spacing:4px; color:rgba(255,130,50,.9); text-transform:uppercase;
+}
+.hero-top {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(18px,4vw,52px);
+  color:rgba(255,210,170,.9); line-height:1.2;
+  text-shadow:0 0 40px rgba(255,80,0,.3);
+}
+.hero-main {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(38px,9vw,108px);
+  line-height:1.0; color:#fff;
+  text-shadow:
+    0 0 20px rgba(255,100,30,.95),
+    0 0 60px rgba(255,60,0,.6),
+    0 0 130px rgba(200,30,0,.4);
+  margin:.06em 0;
+}
+.hero-sub {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(14px,2.8vw,36px);
+  color:rgba(255,120,50,.92);
+  text-shadow:0 0 30px rgba(255,80,0,.6);
+}
+.hdiv {
+  width:clamp(80px,22vw,280px); height:1px;
+  background:linear-gradient(to right, transparent, rgba(255,100,30,.7), transparent);
+  margin:clamp(14px,2.5vh,28px) auto;
+  box-shadow:0 0 8px rgba(255,80,0,.4);
+}
+.hero-quote {
+  position:absolute;
+  bottom:clamp(38px,7vh,96px);
+  left:0; right:0; z-index:10; text-align:center;
+}
+.hero-q-text {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(20px,4.2vw,56px);
+  color:#fff;
+  text-shadow:0 0 10px rgba(255,120,30,1), 0 0 40px rgba(255,70,0,.8), 0 0 90px rgba(200,30,0,.5);
+  line-height:1.25;
+}
+.hero-q-text .acc { color:var(--orange); font-style:italic; }
+.hero-q-small {
+  font-size:clamp(10px,1.1vw,13px); color:rgba(255,150,80,.65);
+  letter-spacing:3px; text-transform:uppercase; margin-top:.4em;
+}
+
+/* ============ SCROLL TICKER ============ */
+.ticker-wrap {
+  background:rgba(255,60,0,0.08);
+  border-top:1px solid rgba(255,80,0,.2);
+  border-bottom:1px solid rgba(255,80,0,.2);
+  padding:14px 0; overflow:hidden;
+}
+.ticker-track {
+  display:flex; gap:clamp(40px,6vw,80px);
+  animation:ticker 28s linear infinite;
+  width:max-content;
+}
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item {
+  white-space:nowrap;
+  font-size:clamp(12px,1.4vw,15px);
+  font-weight:600; color:rgba(255,180,100,.8);
+  letter-spacing:1px;
+  display:flex; align-items:center; gap:14px;
+}
+.ticker-item::before { content:'🔥'; font-size:1em; }
+
+/* ============ COMPARE ============ */
+.compare-section { background:#000; }
+.compare-section .bg-r {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255,50,0,.06) 0%, transparent 70%);
+}
+.compare-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(14px,2.2vw,28px);
+  margin-top:clamp(28px,5vw,56px);
+}
+.cmp-card {
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:clamp(20px,3vw,38px);
+  position:relative; overflow:hidden;
+  transition:border-color .3s, background .3s, transform .3s;
+}
+.cmp-card:hover { border-color:rgba(255,80,0,.35); background:rgba(255,60,0,.06); transform:translateY(-3px); }
+.cmp-card.hot {
+  border-color:rgba(255,80,0,.35);
+  background:rgba(255,50,0,.07);
+}
+.cmp-card.hot::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right, transparent, var(--orange), transparent);
+}
+.cmp-card.warn { border-color:rgba(255,150,0,.25); background:rgba(255,100,0,.04); }
+.cmp-era {
+  font-size:clamp(8px,.9vw,11px); font-weight:700;
+  letter-spacing:2.5px; color:var(--orange);
+  text-transform:uppercase; margin-bottom:.5em;
+}
+.cmp-icon { font-size:clamp(28px,4vw,52px); margin-bottom:.35em; }
+.cmp-title {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(18px,2.5vw,30px); color:#fff; margin-bottom:.3em;
+}
+.cmp-desc { font-size:clamp(13px,1.4vw,16px); color:var(--muted); line-height:1.65; }
+
+/* ============ BIG STATS ============ */
+.stats-section {
+  background:linear-gradient(180deg, #000 0%, #0e0200 45%, #000 100%);
+}
+.stats-header { margin-bottom:clamp(28px,5vw,56px); }
+.big-stat-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(12px,2vw,24px);
+  margin-bottom:clamp(20px,3vw,40px);
+}
+.big-stat {
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,70,0,.22);
+  border-radius:16px;
+  padding:clamp(18px,2.5vw,36px) clamp(14px,2vw,24px);
+  text-align:center; position:relative; overflow:hidden;
+  transition:border-color .3s, transform .3s;
+}
+.big-stat:hover { border-color:rgba(255,80,0,.45); transform:translateY(-4px); }
+.big-stat::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right, transparent, rgba(255,80,0,.6), transparent);
+}
+.big-stat .snum {
+  font-size:clamp(32px,5.5vw,68px); font-weight:700;
+  color:var(--orange); line-height:1; font-family:monospace;
+  text-shadow:0 0 28px rgba(255,80,0,.75);
+}
+.big-stat .sunit { font-size:clamp(14px,2vw,24px); color:rgba(255,120,60,.8); }
+.big-stat .slbl {
+  font-size:clamp(11px,1.2vw,14px); color:var(--muted);
+  margin-top:.5em; line-height:1.5;
+}
+.big-stat .syear {
+  font-size:clamp(9px,.9vw,11px); font-weight:700;
+  color:var(--orange); letter-spacing:2px;
+  text-transform:uppercase; margin-bottom:.4em;
+}
+
+/* Secondary stats row */
+.sec-stats {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,2vw,24px);
+}
+.sec-stat {
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:clamp(16px,2.2vw,28px);
+  display:flex; align-items:flex-start; gap:clamp(12px,1.8vw,20px);
+  transition:background .3s, border-color .3s;
+}
+.sec-stat:hover { background:rgba(255,60,0,.05); border-color:rgba(255,80,0,.2); }
+.sec-stat-icon { font-size:clamp(24px,3.5vw,40px); flex-shrink:0; }
+.sec-stat-num {
+  font-size:clamp(22px,3.5vw,44px); font-weight:700;
+  color:var(--orange); font-family:monospace; line-height:1;
+  text-shadow:0 0 20px rgba(255,80,0,.6);
+}
+.sec-stat-unit { font-size:clamp(12px,1.5vw,18px); color:rgba(255,120,60,.7); }
+.sec-stat-lbl { font-size:clamp(12px,1.3vw,15px); color:var(--muted); margin-top:.3em; line-height:1.5; }
+
+/* ============ REALITY STRIP ============ */
+.reality-section {
+  background:linear-gradient(135deg, rgba(255,40,0,.1), rgba(180,0,30,.07));
+  border-top:1px solid rgba(255,80,0,.15);
+  border-bottom:1px solid rgba(255,80,0,.15);
+  padding:clamp(40px,6vw,80px) 0;
+}
+.reality-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2.5vw,32px);
+}
+.reality-card {
+  text-align:center;
+  padding:clamp(20px,3vw,36px) clamp(16px,2vw,28px);
+  background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,80,0,.18);
+  border-radius:14px;
+}
+.reality-card .ricon { font-size:clamp(32px,5vw,60px); margin-bottom:.4em; }
+.reality-card .rtitle {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(17px,2.5vw,28px); color:#fff; margin-bottom:.3em;
+}
+.reality-card .rdesc { font-size:clamp(13px,1.4vw,16px); color:var(--muted); line-height:1.65; }
+
+/* ============ QUESTIONS ============ */
+.q-section { background:#000; }
+.q-list { margin-top:clamp(24px,4vw,48px); display:flex; flex-direction:column; gap:clamp(12px,1.8vw,18px); }
+.q-item {
+  display:flex; align-items:flex-start;
+  gap:clamp(14px,2vw,26px);
+  padding:clamp(18px,2.5vw,28px);
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-left:3px solid rgba(255,80,0,.5);
+  border-radius:0 14px 14px 0;
+  transition:background .3s, border-color .3s;
+}
+.q-item:hover { background:rgba(255,60,0,.06); border-left-color:var(--orange); }
+.q-dept {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(15px,1.8vw,21px); color:#fff; font-weight:600;
+  min-width:clamp(130px,18vw,240px); flex-shrink:0;
+}
+.q-text { font-size:clamp(13px,1.5vw,17px); color:var(--muted); line-height:1.7; padding-top:.1em; }
+
+/* ============ TIMELINE ============ */
+.timeline-section { background:linear-gradient(180deg,#000 0%,#0a0200 50%,#000 100%); }
+.timeline {
+  position:relative; margin-top:clamp(30px,5vw,60px);
+  padding-left:clamp(24px,4vw,48px);
+}
+.timeline::before {
+  content:''; position:absolute; left:clamp(8px,1.5vw,16px);
+  top:0; bottom:0; width:2px;
+  background:linear-gradient(to bottom, transparent, var(--orange), rgba(255,80,0,.3), transparent);
+}
+.tl-item {
+  position:relative; margin-bottom:clamp(24px,4vw,48px);
+  padding-left:clamp(20px,3vw,40px);
+}
+.tl-item::before {
+  content:''; position:absolute;
+  left:calc(-1 * clamp(24px,4vw,48px) + clamp(8px,1.5vw,16px) - 7px);
+  top:8px; width:14px; height:14px;
+  background:var(--orange); border-radius:50%;
+  box-shadow:0 0 12px rgba(255,80,0,.8);
+}
+.tl-year {
+  font-size:clamp(10px,1vw,12px); font-weight:700; letter-spacing:3px;
+  color:var(--orange); text-transform:uppercase; margin-bottom:.3em;
+}
+.tl-title {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(17px,2.5vw,28px); color:#fff; margin-bottom:.3em;
+}
+.tl-desc { font-size:clamp(13px,1.5vw,16px); color:var(--muted); line-height:1.7; max-width:700px; }
+
+/* ============ SOLUTION ============ */
+.sol-section { background:#000; }
+.sol-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(30px,5vw,70px); align-items:start;
+  margin-top:clamp(28px,5vw,56px);
+}
+.sol-headline {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(26px,4.5vw,58px); line-height:1.2; color:#fff;
+  margin-bottom:clamp(18px,2.8vw,30px);
+}
+.sol-headline em { font-style:normal; color:var(--orange); }
+.sol-steps { display:flex; flex-direction:column; gap:clamp(10px,1.6vw,16px); }
+.sol-step {
+  display:flex; align-items:flex-start; gap:clamp(12px,1.8vw,20px);
+  padding:clamp(16px,2.2vw,24px);
+  background:var(--card-bg); border:1px solid var(--border); border-radius:14px;
+  transition:background .3s, border-color .3s, transform .25s;
+}
+.sol-step:hover { background:rgba(255,60,0,.07); border-color:rgba(255,80,0,.28); transform:translateX(4px); }
+.snum {
+  width:clamp(32px,3.8vw,46px); height:clamp(32px,3.8vw,46px); flex-shrink:0;
+  background:rgba(255,80,0,.18); border:1px solid rgba(255,80,0,.4); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(13px,1.5vw,17px); font-weight:700; color:var(--orange);
+}
+.stxt {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(14px,1.8vw,20px); color:rgba(255,255,255,.88); line-height:1.55;
+}
+
+/* Right: skill cards */
+.skill-cards { display:flex; flex-direction:column; gap:clamp(10px,1.5vw,16px); }
+.skill-card {
+  background:linear-gradient(135deg, rgba(255,50,0,.1), rgba(180,0,20,.07));
+  border:1px solid rgba(255,80,0,.22);
+  border-radius:14px; padding:clamp(16px,2.2vw,26px);
+  display:flex; align-items:center; gap:clamp(14px,2vw,22px);
+  transition:transform .25s, border-color .3s;
+}
+.skill-card:hover { transform:translateX(6px); border-color:rgba(255,80,0,.45); }
+.sk-icon { font-size:clamp(26px,4vw,44px); flex-shrink:0; }
+.sk-name {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(16px,2vw,24px); color:#fff; margin-bottom:.15em;
+}
+.sk-desc { font-size:clamp(12px,1.3vw,15px); color:var(--muted); }
+.sk-badge {
+  margin-left:auto; flex-shrink:0;
+  background:rgba(255,80,0,.18); border:1px solid rgba(255,80,0,.4);
+  color:var(--orange); font-size:clamp(9px,1vw,12px); font-weight:700;
+  padding:4px 10px; border-radius:20px; white-space:nowrap;
+}
+
+/* ============ TESTIMONIALS ============ */
+.test-section { background:linear-gradient(180deg,#000 0%,#090100 60%,#000 100%); }
+.test-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2vw,24px);
+  margin-top:clamp(28px,5vw,56px);
+}
+.test-card {
+  background:var(--card-bg); border:1px solid var(--border);
+  border-radius:16px; padding:clamp(20px,3vw,32px);
+  position:relative; overflow:hidden;
+  transition:transform .3s, border-color .3s;
+}
+.test-card:hover { transform:translateY(-4px); border-color:rgba(255,80,0,.3); }
+.test-card::before {
+  content:'"'; position:absolute; top:-10px; left:16px;
+  font-size:clamp(60px,10vw,120px); color:rgba(255,80,0,.08);
+  font-family:Georgia,serif; line-height:1;
+}
+.test-stars { color:var(--orange); font-size:clamp(12px,1.4vw,16px); margin-bottom:.6em; }
+.test-text {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(13px,1.5vw,17px); color:rgba(255,255,255,.8);
+  line-height:1.7; margin-bottom:1em; position:relative;
+}
+.test-name { font-weight:700; font-size:clamp(13px,1.4vw,16px); color:#fff; }
+.test-role { font-size:clamp(11px,1.2vw,13px); color:var(--muted); }
+
+/* ============ CTA ============ */
+.cta-section {
+  position:relative; background:#000;
+  text-align:center; padding:clamp(70px,11vw,140px) 0;
+  overflow:hidden;
+}
+.cta-fire-glow {
+  position:absolute; bottom:-20%; left:50%; transform:translateX(-50%);
+  width:80%; height:80%;
+  background:radial-gradient(ellipse at center bottom, rgba(255,70,0,.2) 0%, transparent 65%);
+  filter:blur(40px);
+  animation:heroGlow 3.5s ease-in-out infinite alternate;
+}
+.cta-pre {
+  font-size:clamp(9px,1vw,11px); font-weight:700; letter-spacing:4px;
+  color:var(--orange); text-transform:uppercase; margin-bottom:clamp(12px,2vw,20px);
+}
+.cta-title {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(30px,6.5vw,80px); color:#fff; line-height:1.15;
+  text-shadow:0 0 40px rgba(255,80,0,.4);
+  margin-bottom:clamp(12px,2vw,20px);
+}
+.cta-title span { color:var(--orange); }
+.cta-sub {
+  font-size:clamp(14px,1.8vw,20px);
+  color:var(--muted); max-width:520px; margin:0 auto clamp(28px,5vw,52px);
+  line-height:1.7;
+}
+.cta-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-block; text-decoration:none;
+  background:linear-gradient(135deg, #ff5a1f, #ff2d00);
+  color:#fff; font-family:'Tiro Bangla',serif;
+  font-size:clamp(15px,2vw,22px);
+  padding:clamp(13px,2vw,20px) clamp(30px,4.5vw,56px);
+  border-radius:50px; border:none; cursor:pointer;
+  box-shadow:0 0 32px rgba(255,80,0,.5), 0 0 70px rgba(255,50,0,.2);
+  transition:transform .2s, box-shadow .2s;
+}
+.btn-primary:hover { transform:translateY(-4px); box-shadow:0 0 44px rgba(255,80,0,.7), 0 0 90px rgba(255,50,0,.3); }
+.btn-outline {
+  display:inline-block; text-decoration:none;
+  background:transparent;
+  color:var(--orange); font-family:'Tiro Bangla',serif;
+  font-size:clamp(15px,2vw,22px);
+  padding:clamp(13px,2vw,20px) clamp(30px,4.5vw,56px);
+  border-radius:50px; border:1px solid rgba(255,80,0,.5);
+  cursor:pointer; transition:background .2s, transform .2s;
+}
+.btn-outline:hover { background:rgba(255,80,0,.12); transform:translateY(-4px); }
+
+/* ============ FOOTER ============ */
+.footer {
+  background:#000;
+  border-top:1px solid rgba(255,80,0,.1);
+  padding:clamp(24px,4vw,44px) var(--px);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:16px;
+}
+.footer-logo {
+  font-family:'Tiro Bangla',serif;
+  font-size:clamp(14px,1.8vw,20px); color:var(--orange);
+}
+.footer-text {
+  font-size:clamp(11px,1.2vw,14px); color:rgba(255,255,255,.25); text-align:center;
+}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal {
+  opacity:0; transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ============ KEYFRAMES ============ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+/* ============================================================
+   RESPONSIVE @MEDIA QUERIES
+============================================================ */
+
+/* ---- Large Desktop ≥ 1280px ---- */
+@media (min-width: 1280px) {
+  :root { --px: 80px; }
+}
+
+/* ---- Desktop 1025–1279px ---- */
+@media (max-width: 1279px) and (min-width: 1025px) {
+  :root { --px: 52px; }
+  .big-stat-grid { grid-template-columns: repeat(4,1fr); }
+}
+
+/* ---- Tablet Landscape 769–1024px ---- */
+@media (max-width: 1024px) and (min-width: 769px) {
+  :root { --px: 36px; }
+
+  .big-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .sec-stats { grid-template-columns: repeat(2, 1fr); }
+
+  .sol-grid { grid-template-columns: 1fr; gap: 32px; }
+  .skill-cards { order: -1; }
+
+  .test-grid { grid-template-columns: repeat(2, 1fr); }
+  .test-card:last-child { grid-column: 1 / -1; max-width: 380px; margin: 0 auto; }
+
+  .reality-grid { grid-template-columns: repeat(2, 1fr); }
+  .reality-card:last-child { grid-column: 1 / -1; }
+}
+
+/* ---- Tablet Portrait 577–768px ---- */
+@media (max-width: 768px) and (min-width: 577px) {
+  :root { --px: 24px; }
+
+  /* Navbar: hamburger */
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(0,0,0,.97);
+    padding: 20px 24px; gap: 18px;
+    border-bottom: 1px solid rgba(255,80,0,.2);
+    z-index: 199;
+  }
+  .nav-toggle { display: flex; }
+
+  /* Compare 2-col */
+  .compare-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Stats 2-col */
+  .big-stat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sec-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Reality 2-col */
+  .reality-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Solution: single */
+  .sol-grid { grid-template-columns: 1fr; gap: 24px; }
+  .skill-cards { order: -1; }
+
+  /* Testimonials 2-col */
+  .test-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .test-card:last-child { display: none; }
+
+  /* Q items */
+  .q-dept { min-width: 130px; }
+
+  .footer { flex-direction: column; text-align: center; }
+}
+
+/* ---- Mobile ≤ 576px ---- */
+@media (max-width: 576px) {
+  :root { --px: 16px; }
+
+  /* Navbar: hamburger */
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(0,0,0,.98);
+    padding: 16px; gap: 16px;
+    border-bottom: 1px solid rgba(255,80,0,.2);
+    z-index: 199;
+  }
+  .nav-toggle { display: flex; }
+  .nav-cta { display: none; }
+
+  /* Compare: single col */
+  .compare-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Stats: 2-col */
+  .big-stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .sec-stats { grid-template-columns: 1fr; gap: 10px; }
+  .sec-stat { flex-direction: row; }
+
+  /* Reality: single col */
+  .reality-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Solution: single */
+  .sol-grid { grid-template-columns: 1fr; gap: 20px; }
+  .skill-cards { order: -1; }
+
+  /* Q: stack dept */
+  .q-item { flex-direction: column; gap: 6px; }
+  .q-dept { min-width: unset; }
+
+  /* Timeline: tighter */
+  .timeline { padding-left: 22px; }
+  .tl-item { padding-left: 18px; }
+
+  /* Testimonials: single */
+  .test-grid { grid-template-columns: 1fr; gap: 10px; }
+  .test-card:last-child { display: block; }
+
+  /* CTA buttons */
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
+
+  /* Footer */
+  .footer { flex-direction: column; text-align: center; gap: 10px; }
+
+  /* Ticker smaller */
+  .ticker-track { animation-duration: 18s; }
+}
+
+/* ---- Extra Small ≤ 380px ---- */
+@media (max-width: 380px) {
+  :root { --px: 12px; }
+
+  .big-stat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .big-stat .snum { font-size: 26px; }
+
+  .hero-main { font-size: 30px; }
+  .section-title { font-size: 22px; }
+  .sol-headline { font-size: 22px; }
+  .cta-title { font-size: 26px; }
+}
+
+/* ---- Landscape Mobile height < 520px ---- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { min-height: auto; padding: 80px var(--px) 80px; }
+  .hero-quote { position: static; margin-top: 24px; }
+  .fire-svg { height: 100px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="#" class="nav-logo">🔥 স্কিলই ভবিষ্যৎ</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#compare">তুলনা</a></li>
+    <li><a href="#stats">পরিসংখ্যান</a></li>
+    <li><a href="#timeline">ইতিহাস</a></li>
+    <li><a href="#solution">সমাধান</a></li>
+    <li><a href="#cta" class="nav-cta">শুরু করুন</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="মেনু">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="side-glow l"></div>
+  <div class="side-glow r"></div>
+  <div class="grain"></div>
+  <div class="light-beam"></div>
+
+  <div class="wisp" style="width:16%;height:16%;left:13%;bottom:20%;animation-duration:9s"></div>
+  <div class="wisp" style="width:14%;height:14%;left:37%;bottom:24%;animation-duration:11s;animation-delay:2s"></div>
+  <div class="wisp" style="width:19%;height:19%;left:60%;bottom:18%;animation-duration:8s;animation-delay:1s"></div>
+  <div class="wisp" style="width:11%;height:11%;left:79%;bottom:22%;animation-duration:13s;animation-delay:4s"></div>
+
+  <div class="ember" style="width:4px;height:4px;left:43%;bottom:22%;animation-duration:4s;--rise:-38vh;--sway:4vw"></div>
+  <div class="ember" style="width:3px;height:3px;left:55%;bottom:20%;animation-duration:5s;animation-delay:.6s;--rise:-34vh;--sway:-3vw"></div>
+  <div class="ember" style="width:5px;height:5px;left:49%;bottom:25%;animation-duration:3.5s;animation-delay:1.2s;--rise:-42vh;--sway:5vw"></div>
+  <div class="ember" style="width:3px;height:3px;left:38%;bottom:21%;animation-duration:6s;animation-delay:1.8s;--rise:-36vh;--sway:-2vw"></div>
+  <div class="ember" style="width:4px;height:4px;left:63%;bottom:23%;animation-duration:4.5s;animation-delay:2.5s;--rise:-40vh;--sway:3vw"></div>
+
+  <svg class="fire-svg" viewBox="0 0 1440 340" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="fg1" cx="50%" cy="100%" r="60%">
+        <stop offset="0%"   stop-color="#ff8c00" stop-opacity=".95"/>
+        <stop offset="40%"  stop-color="#ff4400" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="#cc0000" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fg2" cx="50%" cy="100%" r="60%">
+        <stop offset="0%"   stop-color="#ffcc44" stop-opacity=".9"/>
+        <stop offset="30%"  stop-color="#ff7700" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="#ff2200" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="fg3" cx="50%" cy="100%" r="70%">
+        <stop offset="0%"   stop-color="#fff4b0" stop-opacity="1"/>
+        <stop offset="20%"  stop-color="#ffaa00" stop-opacity=".9"/>
+        <stop offset="60%"  stop-color="#ff5500" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="fb"><feGaussianBlur stdDeviation="5"/></filter>
+      <filter id="sb"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="ib"><feGaussianBlur stdDeviation="2"/></filter>
+    </defs>
+    <ellipse cx="720" cy="340" rx="780" ry="190" fill="url(#fg1)" filter="url(#sb)"/>
+    <g filter="url(#fb)" opacity=".85">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-10,0;0,0" dur="2.2s" repeatCount="indefinite"/>
+      <path d="M100,340 C130,275 100,228 158,152 C184,228 168,280 210,340Z" fill="url(#fg1)"/>
+      <path d="M290,340 C332,255 295,190 365,82 C402,185 378,264 424,340Z" fill="url(#fg1)"/>
+      <path d="M540,340 C592,218 540,148 620,36 C664,145 637,240 685,340Z" fill="url(#fg2)"/>
+      <path d="M748,340 C796,232 758,162 828,62 C862,162 844,250 892,340Z" fill="url(#fg1)"/>
+      <path d="M995,340 C1035,250 1005,192 1060,114 C1086,192 1073,262 1112,340Z" fill="url(#fg1)"/>
+      <path d="M1200,340 C1228,294 1202,254 1248,184 C1266,252 1254,300 1290,340Z" fill="url(#fg1)"/>
+      <path d="M1360,340 C1382,302 1362,270 1398,216 C1412,268 1403,308 1432,340Z" fill="url(#fg1)"/>
+    </g>
+    <g filter="url(#ib)">
+      <animateTransform attributeName="transform" type="translate" values="0,0;7,0;0,0" dur="1.7s" repeatCount="indefinite"/>
+      <path d="M475,340 C506,268 476,226 516,150 C538,226 526,278 555,340Z" fill="#ff7700" opacity=".9"/>
+      <path d="M675,340 C710,258 680,210 720,132 C746,210 730,268 762,340Z" fill="#ff8800" opacity=".85"/>
+      <path d="M955,340 C986,274 960,232 996,162 C1016,232 1004,280 1036,340Z" fill="#ff6600" opacity=".85"/>
+    </g>
+    <g filter="url(#ib)">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-4,0;0,0" dur="1.3s" repeatCount="indefinite"/>
+      <path d="M618,340 C638,292 615,260 640,208 C656,258 648,302 672,340Z" fill="url(#fg3)"/>
+      <path d="M658,340 C680,278 655,244 682,186 C700,244 690,292 718,340Z" fill="url(#fg3)"/>
+    </g>
+    <ellipse cx="720" cy="340" rx="480" ry="66"  fill="#ff9900"  opacity=".3"  filter="url(#sb)"/>
+    <ellipse cx="720" cy="340" rx="260" ry="30"  fill="#ffdd44"  opacity=".38" filter="url(#sb)"/>
+    <ellipse cx="720" cy="340" rx="100" ry="13"  fill="#fff8a0"  opacity=".55" filter="url(#ib)"/>
+  </svg>
+
+  <div class="vignette"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hbl"></div>
+      <div class="hbt">একটি জ্বলন্ত সত্য — ২০২৬</div>
+      <div class="hbl r"></div>
+    </div>
+    <div class="hero-top">দুনিয়া বদলে গেছে, কিন্তু</div>
+    <div class="hero-main">শিক্ষা আটকে আছে!</div>
+    <div class="hdiv"></div>
+    <div class="hero-sub">৫০ বছর ধরে একই ক্লাসরুম — একই বোর্ড, একই থিওরি, একই ব্যর্থতা</div>
+  </div>
+
+  <div class="hero-quote">
+    <div class="hero-q-text">ডিগ্রি নয়, <span class="acc">স্কিলই ভবিষ্যৎ।</span></div>
+    <div class="hero-q-small">নিচে স্ক্রল করুন — সত্যিটা জানুন ↓</div>
+  </div>
+</section>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">৮৮৫,০০০ গ্র্যাজুয়েট বেকার (২০২৪)</span>
+    <span class="ticker-item">বেকারত্ব ১৩.৫৪% — BBS ২০২৪</span>
+    <span class="ticker-item">প্রতি ১০০ বেকারে ২৮ জন উচ্চশিক্ষিত</span>
+    <span class="ticker-item">Apple-এ ১৬৬,০০০+ কর্মী — ডিগ্রি ছাড়াই অনেকে</span>
+    <span class="ticker-item">বাংলাদেশে ১০ লাখ+ ফ্রিল্যান্সার</span>
+    <span class="ticker-item">IT চাকরি লাগবে ৪,৫০,০০০+ কিন্তু গ্র্যাজুয়েট মাত্র ১০,০০০/বছর</span>
+    <span class="ticker-item">৮৮৫,০০০ গ্র্যাজুয়েট বেকার (২০২৪)</span>
+    <span class="ticker-item">বেকারত্ব ১৩.৫৪% — BBS ২০২৪</span>
+    <span class="ticker-item">প্রতি ১০০ বেকারে ২৮ জন উচ্চশিক্ষিত</span>
+    <span class="ticker-item">Apple-এ ১৬৬,০০০+ কর্মী — ডিগ্রি ছাড়াই অনেকে</span>
+    <span class="ticker-item">বাংলাদেশে ১০ লাখ+ ফ্রিল্যান্সার</span>
+    <span class="ticker-item">IT চাকরি লাগবে ৪,৫০,০০০+ কিন্তু গ্র্যাজুয়েট মাত্র ১০,০০০/বছর</span>
+  </div>
+</div>
+
+<!-- ===== COMPARE ===== -->
+<section class="compare-section" id="compare">
+  <div class="bg-r"></div>
+  <div class="container">
+    <div class="label">তুলনা করুন</div>
+    <div class="section-title">দুনিয়া আপডেট হচ্ছে প্রতিদিন — শিক্ষা হচ্ছে না</div>
+    <div class="section-desc">ফোন থেকে গাড়ি, AI থেকে রোবোটিক্স — সবকিছু বদলে গেছে। কিন্তু ক্লাসরুম? ঠিক ৫০ বছর আগের মতোই।</div>
+    <div class="compare-grid reveal">
+      <div class="cmp-card">
+        <div class="cmp-era">৫০ বছর আগে</div>
+        <div class="cmp-icon">📞</div>
+        <div class="cmp-title">পুরনো ফোন</div>
+        <div class="cmp-desc">শুধু কল করার যন্ত্র। আর কিছুই নয়।</div>
+      </div>
+      <div class="cmp-card hot">
+        <div class="cmp-era">২০২৬ সালে</div>
+        <div class="cmp-icon">📱</div>
+        <div class="cmp-title">AI স্মার্টফোন</div>
+        <div class="cmp-desc">পকেটে সুপারকম্পিউটার — AI, ক্যামেরা, ইন্টারনেট, সবকিছু।</div>
+      </div>
+      <div class="cmp-card">
+        <div class="cmp-era">৫০ বছর আগে</div>
+        <div class="cmp-icon">🚗</div>
+        <div class="cmp-title">সাধারণ গাড়ি</div>
+        <div class="cmp-desc">পেট্রোল, ম্যানুয়াল, কোনো প্রযুক্তি নেই।</div>
+      </div>
+      <div class="cmp-card hot">
+        <div class="cmp-era">২০২৬ সালে</div>
+        <div class="cmp-icon">🚙</div>
+        <div class="cmp-title">Self-Driving EV</div>
+        <div class="cmp-desc">ইলেকট্রিক, অটোনোমাস, AI-চালিত — Tesla, BYD বিপ্লব।</div>
+      </div>
+      <div class="cmp-card">
+        <div class="cmp-era">৫০ বছর আগে</div>
+        <div class="cmp-icon">🏫</div>
+        <div class="cmp-title">ক্লাসরুম</div>
+        <div class="cmp-desc">টিচার, ব্ল্যাকবোর্ড, নোট — থিওরি মুখস্থ করো।</div>
+      </div>
+      <div class="cmp-card warn">
+        <div class="cmp-era" style="color:rgba(255,180,50,.9)">তবু আজ ২০২৬-এও!</div>
+        <div class="cmp-icon">😔</div>
+        <div class="cmp-title">একই ক্লাসরুম</div>
+        <div class="cmp-desc">একই পদ্ধতি — শুধু কিছু প্রজেক্টর যোগ হয়েছে। বাস্তব স্কিল শূন্য।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-section" id="stats">
+  <div class="container">
+    <div class="stats-header">
+      <div class="label">তথ্য ও পরিসংখ্যান ২০২৪–২০২৬</div>
+      <div class="section-title">কঠিন সত্যের সংখ্যা</div>
+      <div class="section-desc">বাংলাদেশ পরিসংখ্যান ব্যুরো (BBS), ILO, World Bank ও Financial Express-এর সর্বশেষ তথ্য।</div>
+    </div>
+
+    <div class="big-stat-grid reveal">
+      <div class="big-stat">
+        <div class="syear">BBS শ্রমশক্তি জরিপ ২০২৪</div>
+        <div class="snum">৮.৮৫<span class="sunit">লাখ</span></div>
+        <div class="slbl">গ্র্যাজুয়েট বেকার (২০২৪)</div>
+      </div>
+      <div class="big-stat">
+        <div class="syear">BBS ২০২৪</div>
+        <div class="snum">১৩.৫<span class="sunit">%</span></div>
+        <div class="slbl">স্নাতকদের বেকারত্বের হার (গ্র্যাজুয়েট বেকারত্ব ১৩.৫৪%)</div>
+      </div>
+      <div class="big-stat">
+        <div class="syear">BBS Q4 FY 2024-25</div>
+        <div class="snum">৪.৬<span class="sunit">%</span></div>
+        <div class="slbl">সার্বিক বেকারত্ব ৪.৬৩% — মোট ২৭.৪ লাখ বেকার</div>
+      </div>
+      <div class="big-stat">
+        <div class="syear">Financial Express 2025</div>
+        <div class="snum">২৮<span class="sunit">%</span></div>
+        <div class="slbl">প্রতি ১০০ বেকারে ২৮ জনই উচ্চশিক্ষিত</div>
+      </div>
+    </div>
+
+    <div class="sec-stats reveal">
+      <div class="sec-stat">
+        <div class="sec-stat-icon">📈</div>
+        <div>
+          <div class="sec-stat-num">২৭.৮<span class="sec-stat-unit">%</span></div>
+          <div class="sec-stat-lbl">যুব উচ্চশিক্ষিত বেকারত্ব ২০২২ — ২০১৩ সালে মাত্র ৯.৭% ছিল (Financial Express)</div>
+        </div>
+      </div>
+      <div class="sec-stat">
+        <div class="sec-stat-icon">💻</div>
+        <div>
+          <div class="sec-stat-num">৪,৫০,০০০<span class="sec-stat-unit">+</span></div>
+          <div class="sec-stat-lbl">IT চাকরির চাহিদা ২০২৫-এ — কিন্তু IT গ্র্যাজুয়েট মাত্র ১০,০০০/বছর</div>
+        </div>
+      </div>
+      <div class="sec-stat">
+        <div class="sec-stat-icon">🌐</div>
+        <div>
+          <div class="sec-stat-num">১০<span class="sec-stat-unit">লাখ+</span></div>
+          <div class="sec-stat-lbl">বাংলাদেশে সক্রিয় ফ্রিল্যান্সার — ২৬% বার্ষিক প্রবৃদ্ধি (BFDS 2025)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REALITY ===== -->
+<section class="reality-section">
+  <div class="container">
+    <div class="label">বাস্তবতার আয়না</div>
+    <div class="section-title">শিক্ষা ও চাকরির মধ্যে বিশাল ফাঁক</div>
+    <div class="reality-grid reveal">
+      <div class="reality-card">
+        <div class="ricon">🎓</div>
+        <div class="rtitle">ডিগ্রি আছে, স্কিল নেই</div>
+        <div class="rdesc">৬০% গ্র্যাজুয়েট জাতীয় বিশ্ববিদ্যালয় থেকে — মানবিক ও সামাজিক বিষয়ে পড়া। চাকরির বাজারের সাথে মিল নেই।</div>
+      </div>
+      <div class="reality-card">
+        <div class="ricon">⏳</div>
+        <div class="rtitle">১৮ বছর পড়াশোনা → বেকারত্ব</div>
+        <div class="rdesc">স্কুল থেকে গ্র্যাজুয়েশন শেষে বয়স ২৪-২৫। গ্রামাঞ্চলে ৮৯% গ্র্যাজুয়েট ১৮ মাসেরও বেশি বেকার থাকেন।</div>
+      </div>
+      <div class="reality-card">
+        <div class="ricon">🧠</div>
+        <div class="rtitle">ব্রেন ড্রেন বাড়ছে</div>
+        <div class="rdesc">দেশে চাকরি না পেয়ে মেধাবীরা বিদেশে চলে যাচ্ছেন। দেশ হারাচ্ছে তার সেরা মানব সম্পদ।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUESTIONS ===== -->
+<section class="q-section" id="questions">
+  <div class="container">
+    <div class="label">নিজেকে প্রশ্ন করুন</div>
+    <div class="section-title">ডিগ্রি কি সত্যিই কাজে আসছে?</div>
+    <div class="section-desc">প্রতি বছর লাখ লাখ ডিগ্রি বের হচ্ছে — কিন্তু বাজারে কাজে লাগছে কতটুকু?</div>
+    <div class="q-list">
+      <div class="q-item reveal">
+        <div class="q-dept">ব্যবসায়ী বিভাগ →</div>
+        <div class="q-text">চার বছর ব্যবসা পড়লেন — কতজন সত্যিকারের ব্যবসা করছেন? থিওরি জানেন, কিন্তু বাজারে টিকতে পারছেন না।</div>
+      </div>
+      <div class="q-item reveal">
+        <div class="q-dept">ইসলাম শিক্ষা →</div>
+        <div class="q-text">ধর্ম নিয়ে পড়লেন — কতজন সত্যিকারের নৈতিক মানুষ হয়েছেন? সার্টিফিকেট আছে, চরিত্র নেই।</div>
+      </div>
+      <div class="q-item reveal">
+        <div class="q-dept">Apple কোম্পানি →</div>
+        <div class="q-text">১৬৬,০০০+ কর্মী — এবং অনেকেই ডিগ্রি ছাড়াই শুধু স্কিল দিয়ে ঢুকেছেন। বিশ্বের সেরা কোম্পানি ডিগ্রি নয়, দক্ষতা চায়।</div>
+      </div>
+      <div class="q-item reveal">
+        <div class="q-dept">IT খাতের চাহিদা →</div>
+        <div class="q-text">বাংলাদেশে ২০২৫-এ ৪,৫০,০০০+ IT পদ দরকার — কিন্তু প্রতি বছর মাত্র ১০,০০০ IT গ্র্যাজুয়েট বের হয়! বিশাল ঘাটতি।</div>
+      </div>
+      <div class="q-item reveal">
+        <div class="q-dept">ফ্রিল্যান্সিং সত্য →</div>
+        <div class="q-text">বাংলাদেশে ১০ লাখ+ ফ্রিল্যান্সার — অনেকেই কোনো ডিগ্রি ছাড়াই বিদেশি মুদ্রায় ইনকাম করছেন। স্কিলই আসল অস্ত্র।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIMELINE ===== -->
+<section class="timeline-section" id="timeline">
+  <div class="container">
+    <div class="label">ইতিহাসের পাতা</div>
+    <div class="section-title">শিক্ষার বিবর্তন — কতটুকু বদলেছে?</div>
+    <div class="section-desc">দুনিয়া প্রতি বছর বদলে যাচ্ছে, কিন্তু আমাদের শিক্ষার গল্প একই থাকছে।</div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year">১৯৭০ দশক</div>
+        <div class="tl-title">ডিগ্রি = নিশ্চিত চাকরি</div>
+        <div class="tl-desc">সেই সময় ডিগ্রিধারীর সংখ্যা কম ছিল। একটা ডিগ্রি মানেই সরকারি বা বেসরকারি চাকরি নিশ্চিত। তখনকার প্রেক্ষাপটে শিক্ষা ব্যবস্থা কাজ করত।</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">২০০০ সাল</div>
+        <div class="tl-title">ইন্টারনেট বিপ্লব শুরু</div>
+        <div class="tl-desc">ডিজিটাল যুগের সূচনা। Google, Amazon জন্ম নিল। কিন্তু আমাদের ক্লাসরুম তখনও বোর্ড আর চক নিয়ে আটকে রইল।</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">২০১০ সাল</div>
+        <div class="tl-title">স্নাতক বেকারত্ব ৪.৯%</div>
+        <div class="tl-desc">BBS-এর তথ্য অনুযায়ী ২০১০ সালে স্নাতক বেকারত্ব ছিল মাত্র ৪.৯%। স্মার্টফোন এসে গেছে, কিন্তু পাঠ্যক্রম আগের মতোই।</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">২০২২ সাল</div>
+        <div class="tl-title">বেকারত্ব লাফিয়ে ১২% হলো</div>
+        <div class="tl-desc">মাত্র ১২ বছরে স্নাতক বেকারত্ব ৪.৯% থেকে ১২%-এ পৌঁছাল। AI আসতে শুরু করল, কিন্তু শিক্ষায় এখনো মুখস্থনির্ভর পদ্ধতি।</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">২০২৪–২৫ সাল</div>
+        <div class="tl-title">সংকট চরমে — ১৩.৫৪% বেকার</div>
+        <div class="tl-desc">BBS-এর সর্বশেষ তথ্যে ৮৮৫,০০০ গ্র্যাজুয়েট বেকার। ChatGPT, AI বিপ্লব এসে গেছে। শিক্ষা ব্যবস্থা এখনো ৫০ বছর আগের পদ্ধতিতে।</div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year">২০২৬ — এখন</div>
+        <div class="tl-title">পরিবর্তন এখনই দরকার</div>
+        <div class="tl-desc">সিস্টেম বদলানোর অপেক্ষা নয় — নিজে স্কিল শিখুন। ফ্রিল্যান্সিং, ডিজিটাল মার্কেটিং, কোডিং, গ্রাফিক ডিজাইন — যেকোনো একটায় ফোকাস করুন।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="sol-section" id="solution">
+  <div class="container">
+    <div class="label">সমাধান</div>
+    <div class="sol-grid">
+      <div>
+        <div class="section-title">সিস্টেমের জন্য অপেক্ষা নয় —<br><span style="color:var(--orange)">নিজেই পথ তৈরি করুন।</span></div>
+        <div class="section-desc" style="margin-bottom:clamp(20px,3vw,36px)">৩-৫ বছর একটা স্কিলে ফোকাস দিন — এক্সপার্ট হন, স্বাধীনভাবে ইনকাম করুন।</div>
+        <div class="sol-steps">
+          <div class="sol-step reveal">
+            <div class="snum">১</div>
+            <div class="stxt">নিজের জন্য নিজে স্কিল বেছে নিন — বাজারে চাহিদা আছে এমন কিছু</div>
+          </div>
+          <div class="sol-step reveal">
+            <div class="snum">২</div>
+            <div class="stxt">YouTube, Coursera, Udemy, Free Course — অনলাইনে শিখুন বিনামূল্যে বা কম খরচে</div>
+          </div>
+          <div class="sol-step reveal">
+            <div class="snum">৩</div>
+            <div class="stxt">৩-৫ বছর একটানা ফোকাস দিন → সেই ফিল্ডে এক্সপার্ট হন</div>
+          </div>
+          <div class="sol-step reveal">
+            <div class="snum">৪</div>
+            <div class="stxt">Fiverr, Upwork, LinkedIn-এ প্রোফাইল বানান → দেশি-বিদেশি ক্লায়েন্ট পান</div>
+          </div>
+          <div class="sol-step reveal">
+            <div class="snum">৫</div>
+            <div class="stxt">প্রচুর ইনকাম + স্বাধীনতা — এটাই আসল ডিগ্রি, এটাই আসল সাফল্য</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-cards">
+          <div class="skill-card reveal">
+            <div class="sk-icon">💻</div>
+            <div>
+              <div class="sk-name">Web Development</div>
+              <div class="sk-desc">HTML, CSS, JavaScript, React</div>
+            </div>
+            <div class="sk-badge">চাহিদা সর্বোচ্চ</div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-icon">🎨</div>
+            <div>
+              <div class="sk-name">Graphic Design</div>
+              <div class="sk-desc">Canva, Figma, Photoshop, Illustrator</div>
+            </div>
+            <div class="sk-badge">সহজে শেখা যায়</div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-icon">📊</div>
+            <div>
+              <div class="sk-name">Digital Marketing</div>
+              <div class="sk-desc">SEO, Facebook Ads, Content Marketing</div>
+            </div>
+            <div class="sk-badge">দ্রুত আয়</div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-icon">🤖</div>
+            <div>
+              <div class="sk-name">AI & Data Science</div>
+              <div class="sk-desc">Python, Machine Learning, ChatGPT API</div>
+            </div>
+            <div class="sk-badge">ভবিষ্যতের স্কিল</div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="sk-icon">🎬</div>
+            <div>
+              <div class="sk-name">Video Editing</div>
+              <div class="sk-desc">Premiere Pro, CapCut, DaVinci Resolve</div>
+            </div>
+            <div class="sk-badge">বাজার বিশাল</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="test-section" id="testimonials">
+  <div class="container">
+    <div class="label">সফলতার গল্প</div>
+    <div class="section-title">তারা স্কিল দিয়ে জিতেছেন</div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"ডিগ্রি শেষে ২ বছর চাকরি খুঁজে পাইনি। তারপর Fiverr-এ Graphic Design শুরু করলাম। এখন মাসে ৮০,০০০-১,২০,০০০ টাকা আয় করি।"</div>
+        <div class="test-name">রাফি হোসেন</div>
+        <div class="test-role">ফ্রিল্যান্স ডিজাইনার, ঢাকা</div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"BBA পাস করার পর ১ বছর বেকার ছিলাম। Digital Marketing শিখলাম YouTube থেকে। এখন নিজের Agency চালাই — ৫ জন কর্মী আছে।"</div>
+        <div class="test-name">সুমাইয়া আক্তার</div>
+        <div class="test-role">ডিজিটাল মার্কেটিং এজেন্সি ওনার, চট্টগ্রাম</div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">"HSC পরেই Python শেখা শুরু করলাম। বিশ্ববিদ্যালয়ে পড়তে পড়তে Upwork-এ কাজ করি। এখন ডলারে ইনকাম করি — ডিগ্রির চেয়ে স্কিলই এগিয়ে নিয়ে গেছে।"</div>
+        <div class="test-name">তানভীর আহমেদ</div>
+        <div class="test-role">Junior Developer, Remote</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="cta">
+  <div class="cta-fire-glow"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="cta-pre">এখনই পদক্ষেপ নিন</div>
+    <div class="cta-title">আজ থেকেই<br><span>শুরু করুন!</span></div>
+    <div class="cta-sub">সিস্টেমের অপেক্ষায় বসে থাকবেন না। নিজের স্কিল নিজে গড়ুন — স্বাধীনভাবে ইনকাম করুন।</div>
+    <div class="cta-buttons">
+      <a href="#solution" class="btn-primary">স্কিল বেছে নিন →</a>
+      <a href="#stats" class="btn-outline">পরিসংখ্যান দেখুন</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-logo">🔥 স্কিলই ভবিষ্যৎ</div>
+  <div class="footer-text">তথ্যসূত্র: BBS শ্রমশক্তি জরিপ ২০২৪ · Financial Express · ILO · World Bank · BFDS 2025</div>
+  <div class="footer-text" style="color:rgba(255,255,255,.15)">© ২০২৬ — আপনার অভিজ্ঞতা কমেন্টে শেয়ার করুন</div>
+</footer>
+
+<script>
+/* ===== NAVBAR ===== */
+const toggle = document.getElementById('navToggle');
+const links  = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => links.classList.remove('open'))
+);
+
+/* ===== DYNAMIC EMBERS ===== */
+const hero = document.querySelector('.hero');
+function spawnEmber() {
+  const e = document.createElement('div');
+  e.className = 'ember';
+  const s = Math.random() * 4 + 2;
+  e.style.cssText = `
+    width:${s}px;height:${s}px;
+    left:${34+Math.random()*32}%;
+    bottom:${18+Math.random()*10}%;
+    animation-duration:${3+Math.random()*4}s;
+    --rise:-${28+Math.random()*16}vh;
+    --sway:${(Math.random()-.5)*9}vw;
+    position:absolute;
+  `;
+  hero.appendChild(e);
+  setTimeout(() => e.remove(), 8000);
+}
+setInterval(spawnEmber, 420);
+
+/* ===== DYNAMIC SMOKE ===== */
+function spawnSmoke() {
+  const s = document.createElement('div');
+  s.className = 'wisp';
+  const p = 10 + Math.random()*11;
+  s.style.cssText = `
+    width:${p}vw;height:${p}vw;
+    left:${24+Math.random()*52}%;
+    bottom:${14+Math.random()*9}%;
+    animation-duration:${8+Math.random()*6}s;
+    position:absolute;
+  `;
+  hero.appendChild(s);
+  setTimeout(() => s.remove(), 16000);
+}
+setInterval(spawnSmoke, 1400);
+
+/* ===== SCROLL REVEAL ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+  observer.observe(el);
+});
+
+/* ===== COUNTER ANIMATION ===== */
+function animateCount(el, target, suffix='', duration=1800) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { start = target; clearInterval(timer); }
+    el.textContent = (Number.isInteger(target)
+      ? Math.floor(start).toLocaleString('bn')
+      : start.toFixed(1)) + suffix;
+  }, 16);
+}
+
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const val = parseFloat(el.dataset.val);
+      const suf = el.dataset.suf || '';
+      animateCount(el, val, suf);
+      countObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+// No data-val used here, counters are static Bengali numerals
+</script>
+</body>
+</html>
